@@ -14,5 +14,14 @@
     <a class="btn btn-ghost text-xl" routerLink="/contact" routerLinkActive="bg-info text-white"
       >Contact</a
     >
+    @if (!isLoggedIn) {
+      <a class="btn btn-ghost text-xl" routerLink="/login" routerLinkActive="bg-info text-white"
+      >Login</a
+    >
+    }@else {
+      <a class="btn btn-ghost text-xl" routerLink="/login" routerLinkActive="bg-info text-white"
+      >Logout</a
+    >
+    }
   </div>
 </div>

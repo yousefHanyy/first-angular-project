@@ -5,6 +5,8 @@ import { ContactUs } from './components/contact-us/contact-us';
 import { Order } from './components/order/order';
 import { Notfound } from './components/notfound/notfound';
 import { Details } from './components/details/details';
+import { Login } from './components/login/login';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -30,10 +32,13 @@ export const routes: Routes = [
   {
     path: 'courses',
     component: Order,
-    title: 'Courses',
+    title: 'Courses',canActivate:[authGuard]
   },
-  { path: 'details/:id', component: Details, title: 'Details' },
   {
+    path:'login',
+    component: Login, title:'Login', 
+  },
+  { path: 'details/:id', component: Details, title: 'Details' },{
     path: '**',
     component: Notfound,
   },

@@ -3,17 +3,17 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { ICourse } from '../../models/icourse.model';
-import { CurrencyPipe, NgClass, NgStyle } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DisableAfterClick } from '../../directives/disable-after-click';
 import { DiscountPipe } from '../../pipes/discount-pipe';
 import { CoursesService } from '../../services/courses';
 import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-courses',
@@ -25,6 +25,7 @@ import { RouterLink } from '@angular/router';
     DiscountPipe,
     CurrencyPipe,
     RouterLink,
+    AsyncPipe,
   ],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
@@ -51,6 +52,9 @@ export class Courses {
   private coursesService = inject(CoursesService);
   courses: ICourse[] = this.coursesService.getAllCourses();
   filteredCourses: ICourse[] = this.courses;
+
+  //* Observables implementation:
+  courseStatus$ = this.coursesService.getCourseStatus();
 
   ngOnChanges(changes: SimpleChanges): void {
     this.filteredCourses = this.coursesService.getCoursesByCatId(this.receivedCatId);

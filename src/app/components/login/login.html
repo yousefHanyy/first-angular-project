@@ -1,0 +1,5 @@
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs mx-auto mt-15 border p-4">
+
+  <button [disabled]='isLoggedIn' class="btn btn-neutral mt-4" (click)="login()">Login</button>
+  <button [disabled]="!isLoggedIn" class="btn btn-neutral mt-4" (click)="logout()">Logout</button>
+</fieldset>

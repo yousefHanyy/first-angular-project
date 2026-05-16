@@ -1,6 +1,17 @@
 <h1 ngClass="card-title text-2xl justify-center flex m-2">
   Total price: {{ totalPrice | currency }}
 </h1>
+<!--* Observable in the UI -->
+<div class="flex justify-center m-4">
+  @if (courseStatus$ | async; as status) {
+    <button class="btn btn-warning" [disabled]="status !== 'Courses Ready!'">
+      {{ status }}
+    </button>
+  } @else {
+    <button class="btn btn-warning" disabled>Courses initializing...</button>
+  }
+</div>
+
 <div class="flex flex-wrap m-5 items-center justify-between gap-10">
   @for (course of filteredCourses; track course.id) {
     <div class="card bg-base-100 w-100 shadow-sm">
