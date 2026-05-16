@@ -1,0 +1,12 @@
+<div class="flex justify-center mt-5">
+  <select class="select select-lg" [(ngModel)]="selectedCatId">
+    <option disabled selected>Pick a category</option>
+    @for (category of categories; track category.id) {
+      <option [value]="category.id">{{ category.name }}</option>
+    }
+  </select>
+</div>
+<app-courses
+  [sentSelectedCategoryId]="selectedCatId"
+  (onRegisterPriceChanged)="setCoursePrice($event)"
+></app-courses>

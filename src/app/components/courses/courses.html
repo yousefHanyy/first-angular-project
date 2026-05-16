@@ -1,0 +1,48 @@
+<h1 ngClass="card-title text-2xl justify-center flex m-2">
+  Total price: {{ totalPrice | currency }}
+</h1>
+<div class="flex flex-wrap m-5 items-center justify-between gap-10">
+  @for (course of filteredCourses; track course.id) {
+    <div class="card bg-base-100 w-100 shadow-sm">
+      <figure>
+        <img [src]="course.image" alt="placeholder" />
+      </figure>
+      <div
+        [ngStyle]="{
+          'background-color': course.seats > 0 && course.seats <= 2 ? '#E9D502' : 'white',
+        }"
+        class="card-body"
+      >
+        <h2 class="card-title">{{ course.title }}</h2>
+        <span>Instructor: {{ course.instructor }} </span>
+        <span>Price: {{ course.price | discount: discountValue | currency }}</span>
+        <span
+          [ngClass]="{
+            'text-red-500': course.seats === 0,
+          }"
+        >
+          Seats:
+          @if (course.seats === 0) {
+            Course is full
+          } @else if (course.seats <= 2) {
+            Only {{ course.seats }} left
+          } @else {
+            {{ course.seats }}
+          }
+        </span>
+
+        <button
+          [disabled]="course.seats === 0"
+          (click)="decreaseSeats(course); registerPrice(course.price)"
+          appDisableAfterClick
+          class="btn btn-primary"
+        >
+          Register
+        </button>
+        <button class="btn btn-accent text-white" [routerLink]="['/details', course.id]">
+          Details
+        </button>
+      </div>
+    </div>
+  }
+</div>

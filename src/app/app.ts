@@ -1,11 +1,15 @@
 import { Component, signal } from '@angular/core';
+import { Navbar } from './components/navbar/navbar';
+import { Footer } from './components/footer/footer';
+import { Courses } from './components/courses/courses';
+import { Order } from './components/order/order';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Footer, Navbar, RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('first-angular-project');

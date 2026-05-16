@@ -1,0 +1,27 @@
+<!-- !old -->
+<!-- <h1>Total Order price :{{ totalOrderPrice }}</h1>
+<h1>Selected category id: {{ selectedCatId }}</h1> -->
+<!-- * For loops in html: -->
+<!-- @for(prd of nameOfArray; track by uniqueValue) { -->
+<!-- What you want to repeat -->
+<!-- } -->
+<!-- * Event binding example: -->
+<!-- <input type="number" #referenceOrTemplateVariable> -->
+<!-- name of event in bracket then in the string call the method that is called by the event which is in the ts file -->
+<!-- $event if i want the event object -->
+<!-- <button [disabled]='prd.quantity==0' (click)="buy(prd.price,referenceOrTemplateVariable.value , $event)">Buy</button> -->
+<!-- * Two-way binding example: -->
+<!-- <div>
+    <label for="">Categories</label>
+
+    <select [(ngModel)]='selectedCatId'>
+
+        @for(cat of categories; track cat.id){
+            <option [value]='cat.id'>{{cat.name}}</option>
+            }
+    </select>
+
+</div> -->
+<!-- ! -->
+<!-- * Custom pipe usage: -->
+<!-- <h1>{{products.title | shortenPipe}}</h1> -->
