@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ICourse } from '../models/icourse.model';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class CoursesService {
       instructor: 'Abdallah',
       price: 10,
       seats: 10,
-      image: 'https://placehold.co/600x400',
+      imgUrl: 'https://placehold.co/600x400',
       catId: 1,
     },
     {
@@ -22,7 +22,7 @@ export class CoursesService {
       instructor: 'Abdallah',
       price: 10,
       seats: 10,
-      image: 'https://placehold.co/600x400',
+      imgUrl: 'https://placehold.co/600x400',
       catId: 2,
     },
     {
@@ -31,7 +31,7 @@ export class CoursesService {
       instructor: 'Nadia',
       price: 10,
       seats: 10,
-      image: 'https://placehold.co/600x400',
+      imgUrl: 'https://placehold.co/600x400',
       catId: 3,
     },
     {
@@ -40,7 +40,7 @@ export class CoursesService {
       instructor: 'Ahmed',
       price: 10,
       seats: 10,
-      image: 'https://placehold.co/600x400',
+      imgUrl: 'https://placehold.co/600x400',
       catId: 4,
     },
     {
@@ -49,7 +49,7 @@ export class CoursesService {
       instructor: 'Mona',
       price: 10,
       seats: 10,
-      image: 'https://placehold.co/600x400',
+      imgUrl: 'https://placehold.co/600x400',
       catId: 5,
     },
   ];
@@ -70,32 +70,32 @@ export class CoursesService {
     let crs = this.courses.find((crs) => crs.id == id);
     return crs ? crs : null;
   }
-// * Observable creation:
-  courseStatus=['Courses are being processed...','Courses Ready!'];
-  getCourseStatus():Observable<string>{
-  return new Observable((observer)=>{
-    let counter=0;
-    // every 2s do this:
-    let interval = setInterval(()=>{
-      if(counter == this.courseStatus.length){
-        // when the condition is met the observable will stop
-        observer.complete()
-      }
-      if(this.courseStatus[counter]==''){
-        // returns an error if the condition is met
-        observer.error('Something wrong happened!')
-      }
-      // goes to the next value
-      observer.next(this.courseStatus[counter]);
-      counter++;
-    },2000)
+  // * Observable creation:
+  courseStatus = ['Courses are being processed...', 'Courses Ready!'];
+  getCourseStatus(): Observable<string> {
+    return new Observable((observer) => {
+      let counter = 0;
+      // every 2s do this:
+      let interval = setInterval(() => {
+        if (counter == this.courseStatus.length) {
+          // when the condition is met the observable will stop
+          observer.complete();
+        }
+        if (this.courseStatus[counter] == '') {
+          // returns an error if the condition is met
+          observer.error('Something wrong happened!');
+        }
+        // goes to the next value
+        observer.next(this.courseStatus[counter]);
+        counter++;
+      }, 2000);
 
-    return {
-      unsubscribe(){
-        //* don't forget to unsubscribe events when done
-        clearInterval(interval)
-      }
-    }
-  })
+      return {
+        unsubscribe() {
+          //* don't forget to unsubscribe events when done
+          clearInterval(interval);
+        },
+      };
+    });
   }
 }

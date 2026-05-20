@@ -1,0 +1,157 @@
+<div class="max-w-lg mx-auto m-10 p-6 bg-base-100 rounded-2xl shadow-xl border border-base-200">
+  <h1 class="text-3xl font-bold text-center mb-6 text-primary">
+    @if (isEditMode) {
+      Update Course
+    } @else {
+      Insert New Course
+    }
+  </h1>
+
+  @if (isLoading) {
+    <div class="flex flex-col items-center justify-center gap-4 py-12">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+      <p class="text-base-content/70 text-sm font-medium">Loading course details...</p>
+    </div>
+  } @else {
+    <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm)" class="flex flex-col gap-4">
+    <div class="form-control">
+      <label class="label font-semibold">Title</label>
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="course.title"
+        required
+        minlength="3"
+        #titleInput="ngModel"
+        placeholder="Course Title"
+        class="input input-bordered w-full"
+        [class.input-error]="titleInput.invalid && titleInput.touched"
+      />
+      @if (titleInput.invalid && titleInput.touched) {
+        <span class="text-error text-xs mt-1">
+          @if (titleInput.errors?.['required']) {
+            Title is required.
+          } @else if (titleInput.errors?.['minlength']) {
+            Title must be at least 3 characters.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="form-control">
+      <label class="label font-semibold">Instructor</label>
+      <input
+        type="text"
+        name="instructor"
+        [(ngModel)]="course.instructor"
+        required
+        #instructorInput="ngModel"
+        placeholder="Instructor Name"
+        class="input input-bordered w-full"
+        [class.input-error]="instructorInput.invalid && instructorInput.touched"
+      />
+      @if (instructorInput.invalid && instructorInput.touched) {
+        <span class="text-error text-xs mt-1">Instructor is required.</span>
+      }
+    </div>
+
+    <div class="form-control">
+      <label class="label font-semibold">Price ($)</label>
+      <input
+        type="number"
+        name="price"
+        [(ngModel)]="course.price"
+        required
+        min="1"
+        #priceInput="ngModel"
+        placeholder="Course Price"
+        class="input input-bordered w-full"
+        [class.input-error]="priceInput.invalid && priceInput.touched"
+      />
+      @if (priceInput.invalid && priceInput.touched) {
+        <span class="text-error text-xs mt-1">
+          @if (priceInput.errors?.['required']) {
+            Price is required.
+          } @else if (priceInput.errors?.['min']) {
+            Price must be greater than 0.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="form-control">
+      <label class="label font-semibold">Available Seats</label>
+      <input
+        type="number"
+        name="seats"
+        [(ngModel)]="course.seats"
+        required
+        min="1"
+        #seatsInput="ngModel"
+        placeholder="Seats Count"
+        class="input input-bordered w-full"
+        [class.input-error]="seatsInput.invalid && seatsInput.touched"
+      />
+      @if (seatsInput.invalid && seatsInput.touched) {
+        <span class="text-error text-xs mt-1">
+          @if (seatsInput.errors?.['required']) {
+            Seats count is required.
+          } @else if (seatsInput.errors?.['min']) {
+            Seats must be greater than 0.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="form-control">
+      <label class="label font-semibold">Image URL</label>
+      <input
+        type="text"
+        name="imgUrl"
+        [(ngModel)]="course.imgUrl"
+        required
+        #imgUrlInput="ngModel"
+        placeholder="https://example.com/image.jpg"
+        class="input input-bordered w-full"
+        [class.input-error]="imgUrlInput.invalid && imgUrlInput.touched"
+      />
+      @if (imgUrlInput.invalid && imgUrlInput.touched) {
+        <span class="text-error text-xs mt-1">Image URL is required.</span>
+      }
+    </div>
+
+    <div class="form-control">
+      <label class="label font-semibold">Category</label>
+      <select
+        name="catId"
+        [(ngModel)]="course.catId"
+        required
+        #catInput="ngModel"
+        class="select select-bordered w-full"
+        [class.select-error]="catInput.invalid && catInput.touched"
+      >
+        <option value="" disabled selected>Select Category</option>
+        @for (cat of categories; track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+      @if (catInput.invalid && catInput.touched) {
+        <span class="text-error text-xs mt-1">Category selection is required.</span>
+      }
+    </div>
+
+    <div class="flex gap-4 mt-4">
+      <button type="submit" [disabled]="courseForm.invalid" class="btn btn-primary flex-1">
+        @if (isEditMode) {
+          Update Course
+        } @else {
+          Add Course
+        }
+      </button>
+      <button type="button" routerLink="/courses" class="btn btn-outline btn-secondary flex-1">
+        Cancel
+      </button>
+    </div>
+    </form>
+  }
+</div>

@@ -2,7 +2,10 @@
   Total price: {{ totalPrice | currency }}
 </h1>
 <!--* Observable in the UI -->
-<div class="flex justify-center m-4">
+<div class="flex justify-center gap-4 m-4">
+  <button class="btn btn-primary" routerLink="/insertcourse">
+    + Insert New Course
+  </button>
   @if (courseStatus$ | async; as status) {
     <button class="btn btn-warning" [disabled]="status !== 'Courses Ready!'">
       {{ status }}
@@ -13,10 +16,10 @@
 </div>
 
 <div class="flex flex-wrap m-5 items-center justify-between gap-10">
-  @for (course of filteredCourses; track course.id) {
+  @for (course of filteredCourses(); track course.id) {
     <div class="card bg-base-100 w-100 shadow-sm">
       <figure>
-        <img [src]="course.image" alt="placeholder" />
+        <img [src]="course.imgUrl" alt="placeholder" />
       </figure>
       <div
         [ngStyle]="{
@@ -53,6 +56,14 @@
         <button class="btn btn-accent text-white" [routerLink]="['/details', course.id]">
           Details
         </button>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <button class="btn btn-warning btn-outline" [routerLink]="['/insertcourse', course.id]">
+            Edit
+          </button>
+          <button class="btn btn-error text-white" (click)="deleteCourse(course.id)">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   }

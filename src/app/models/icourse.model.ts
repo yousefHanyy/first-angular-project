@@ -4,6 +4,6 @@ export interface ICourse {
   instructor: string;
   price: number;
   seats: number;
-  image: string;
+  imgUrl: string;
   catId: number;
 }

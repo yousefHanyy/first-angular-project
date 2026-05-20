@@ -1,10 +1,32 @@
-<div class="card bg-base-100 shadow-xl m-5">
-  <figure>
-    <img [src]="course?.image" alt="placeholder" />
-  </figure>
-  <div class="card-body">
-    <h2 class="card-title">{{ course?.title }}</h2>
-    <span>Instructor: {{ course?.instructor }} </span>
-    <span>Seats: {{ course?.seats }}</span>
-  </div>
+<div class="max-w-md mx-auto m-10 p-6 bg-base-100 rounded-2xl shadow-xl border border-base-200">
+  @if (isLoading) {
+    <div class="flex flex-col items-center justify-center gap-4 py-12">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+      <p class="text-base-content/70 text-sm font-medium">Loading course details...</p>
+    </div>
+  } @else if (course) {
+    <div class="card bg-base-100 shadow-xl">
+      <figure class="px-6 pt-6">
+        <img [src]="course.imgUrl" alt="{{ course.title }}" class="rounded-xl w-full object-cover max-h-60" />
+      </figure>
+      <div class="card-body items-center text-center">
+        <h2 class="card-title text-2xl text-primary">{{ course.title }}</h2>
+        <p class="text-lg"><strong>Instructor:</strong> {{ course.instructor }}</p>
+        <p class="text-lg"><strong>Price:</strong> {{ course.price | currency }}</p>
+        <p class="text-lg"><strong>Seats:</strong> {{ course.seats }}</p>
+        <div class="card-actions mt-4 w-full">
+          <button class="btn btn-outline btn-secondary w-full" routerLink="/courses">
+            Back to Courses
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="text-center py-12">
+      <p class="text-error font-medium mb-4">Course not found.</p>
+      <button class="btn btn-primary" routerLink="/courses">
+        Back to Courses
+      </button>
+    </div>
+  }
 </div>

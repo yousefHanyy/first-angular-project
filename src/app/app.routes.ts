@@ -7,6 +7,7 @@ import { Notfound } from './components/notfound/notfound';
 import { Details } from './components/details/details';
 import { Login } from './components/login/login';
 import { authGuard } from './guards/auth-guard';
+import { InsertCourse } from './components/insert-course/insert-course';
 
 export const routes: Routes = [
   {
@@ -38,7 +39,20 @@ export const routes: Routes = [
     path:'login',
     component: Login, title:'Login', 
   },
-  { path: 'details/:id', component: Details, title: 'Details' },{
+  { path: 'details/:id', component: Details, title: 'Details' },
+  {
+    path: 'insertcourse',
+    component: InsertCourse,
+    title: 'Insert Course',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'insertcourse/:id',
+    component: InsertCourse,
+    title: 'Edit Course',
+    canActivate: [authGuard],
+  },
+  {
     path: '**',
     component: Notfound,
   },
